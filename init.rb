@@ -19,11 +19,10 @@ Redmine::Plugin.register :redmine_fullcalendar do
            }
 end
 
-include Redmine::I18n
 Redmine::MenuManager.map :project_menu do |menu|
   menu.push :fullcalendar,
             { :controller => 'fullcalendars', :action => 'index' },
-            :caption => Proc.new { l(:label_calendar) },
+            :caption => 'Calendrier',
             :param => :project_id,
             :after => :calendar
 end
