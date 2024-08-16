@@ -3,7 +3,7 @@
         var calendarEl = document.getElementById('fullcalendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
-            locale: '<%= User.current.language || Setting.default_language %>',
+            locale: '<%= User.current.language.present? ? User.current.language : Setting.default_language %>',
             headerToolbar: {
                 left: 'prev,next today',
                 center: 'title',
