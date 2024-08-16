@@ -1,0 +1,13 @@
+#fullcalendar {
+    max-width: 1100px;
+    margin: 1em auto;
+}
+
+#fullcalendar button {
+    height: initial;
+}
+
+#fullcalendar a, #fullcalendar a:hover {
+    color: initial;
+    text-decoration: none;
+}

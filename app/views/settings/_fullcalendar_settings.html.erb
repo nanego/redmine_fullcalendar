@@ -1,0 +1,16 @@
+<fieldset>
+  <p>
+    <label><%= l(:fullcalendar_start_field) %></label>
+    <%= select_tag "settings[fullcalendar_start_field]",
+                   options_for_select(IssueCustomField.where(:field_format => "date").collect { |u| [u.name, u.id] },
+                                      @settings['fullcalendar_start_field']),
+                   { include_blank: true, id: "settings_fullcalendar_start_field" } %>
+  </p>
+  <p>
+    <label><%= l(:fullcalendar_end_field) %></label>
+    <%= select_tag "settings[fullcalendar_end_field]",
+                   options_for_select(IssueCustomField.where(:field_format => "date").collect { |u| [u.name, u.id] },
+                                      @settings['fullcalendar_end_field']),
+                   { include_blank: true, id: "settings_fullcalendar_end_field" } %>
+  </p>
+</fieldset>

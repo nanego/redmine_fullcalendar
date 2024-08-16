@@ -1,0 +1,25 @@
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('fullcalendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: '<%= User.current.language || Setting.default_language %>',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek,dayGridDay'
+            },
+            events: '/fullcalendar/issues.json?project_id=<%= @project&.id %>&key=<%= User.current.api_key %>',
+            loading: function (isLoading) {
+                if (isLoading) {
+                    $('#loading').show();
+                }
+                else {
+                    $('#loading').hide();
+                }
+            },
+        });
+        calendar.render();
+    });
+</script>
+<div id='fullcalendar'></div>
