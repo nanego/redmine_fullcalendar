@@ -11,3 +11,11 @@
     color: initial;
     text-decoration: none;
 }
+
+#fullcalendar th[role=columnheader]:hover:after {
+    display: none;
+}
+
+#fullcalendar th[role=columnheader] {
+    cursor: default;
+}
