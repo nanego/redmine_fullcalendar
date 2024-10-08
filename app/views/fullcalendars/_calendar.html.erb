@@ -1,8 +1,13 @@
 <script>
+    function getInitials(str) {
+        str == null ? str = '' : str;
+        return str.split(' ').map(word => word[0]).join('');
+    }
+
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('fullcalendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-            initialView: 'dayGridMonth',
+            initialView: 'dayGridWeek',
             locale: '<%= User.current.language.present? ? User.current.language : Setting.default_language %>',
             headerToolbar: {
                 left: 'prev,next today',
@@ -13,10 +18,52 @@
             loading: function (isLoading) {
                 if (isLoading) {
                     $('#loading').show();
-                }
-                else {
+                } else {
                     $('#loading').hide();
                 }
+            },
+            eventContent: function (arg) {
+                let eventTitle = arg.event.title;
+                let eventAssignee = arg.event.extendedProps.assignee;
+
+                // Force l'affichage de l'heure de début et de fin
+                time = []
+                if (arg.event.start && !arg.event.allDay) {
+                    time.push(FullCalendar.formatDate(arg.event.start, {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        meridiem: false,
+                        hour12: false
+                    }))
+                }
+                if (arg.event.end && !arg.event.allDay) {
+                    time.push(FullCalendar.formatDate(arg.event.end, {
+                        hour: 'numeric',
+                        minute: '2-digit',
+                        meridiem: false,
+                        hour12: false
+                    }))
+                }
+                timeText = time.join(' - ');
+
+                let assigneeEl = document.createElement('div');
+                assigneeEl.classList.add("fc-daygrid-event-assignee");
+                assigneeEl.innerHTML = getInitials(eventAssignee);
+
+                let timeEl = document.createElement('div');
+                timeEl.classList.add("fc-event-time");
+                timeEl.innerHTML = timeText;
+
+                let firstContainerEl = document.createElement('div');
+                firstContainerEl.style = "display: flex;";
+                firstContainerEl.appendChild(assigneeEl);
+                firstContainerEl.appendChild(timeEl);
+
+                let titleEl = document.createElement('div')
+                titleEl.classList.add("fc-event-title");
+                titleEl.innerHTML = eventTitle;
+
+                return {domNodes: [firstContainerEl, titleEl]};
             },
         });
         calendar.render();

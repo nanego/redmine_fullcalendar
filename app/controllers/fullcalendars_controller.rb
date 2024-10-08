@@ -45,6 +45,7 @@ class FullcalendarsController < ApplicationController
       {
         id: issue.id,
         title: issue.subject,
+        assignee: issue.assigned_to&.name,
         start: start_date,
         end: all_day ? end_date + 1.day : end_date,
         url: issue_url(issue),
