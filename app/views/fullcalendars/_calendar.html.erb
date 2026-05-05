@@ -14,7 +14,7 @@
                 center: 'title',
                 right: 'dayGridMonth,dayGridWeek,dayGridDay'
             },
-            events: '/fullcalendar/issues.json?project_id=<%= @project&.id %>&key=<%= User.current.api_key %>',
+            events: '/fullcalendar/issues.json?project_id=<%= @project&.id %>',
             loading: function (isLoading) {
                 if (isLoading) {
                     $('#loading').show();
